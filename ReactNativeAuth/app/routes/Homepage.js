@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Alert, AsyncStorage, Image, Text, TouchableOpacity, View} from 'react-native';
+import {Alert, AsyncStorage, Text, TouchableOpacity, View} from 'react-native';
 import {Actions} from 'react-native-router-flux';
 import styles from './styles';
 
@@ -8,7 +8,7 @@ class HomePage extends Component {
   getProtectedQuote() {
     AsyncStorage.getItem('id_token').then((token) => {
       // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
-      fetch('http://86.164.41.116:3001/api/protected/random-quote', {
+      fetch('http://127.0.0.1:3001/api/protected/random-quote', {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
       })
@@ -33,7 +33,6 @@ class HomePage extends Component {
   render() {
     return (
       <View style={styles.container}>
-        {/* <Image source={require('../images/chuck_norris.png')} style={styles.image}/> */}
 
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.getProtectedQuote}>
           <Text style={styles.buttonText}> Get Chuck Norris quote! </Text>
@@ -42,6 +41,7 @@ class HomePage extends Component {
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogout}>
           <Text style={styles.buttonText} > Log out </Text>
         </TouchableOpacity>
+
       </View>
     );
   }

@@ -16,7 +16,7 @@ class Authentication extends Component {
   userSignup() {
     if (!this.state.username || !this.state.password) return;
     // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
-    fetch('http://86.164.41.116:3001/users', {
+    fetch('http://127.0.0.1:3001/users', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -36,7 +36,7 @@ class Authentication extends Component {
   userLogin() {
     if (!this.state.username || !this.state.password) return;
     // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
-    fetch('http://86.164.41.116:3001/sessions/create', {
+    fetch('http://127.0.0.1:3001/sessions/create', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -71,7 +71,7 @@ class Authentication extends Component {
             editable={true}
             onChangeText={(username) => this.setState({username})}
             placeholder='Username'
-            ref='username'
+            // ref='username'
             returnKeyType='next'
             style={styles.inputText}
             value={this.state.username}
@@ -81,7 +81,7 @@ class Authentication extends Component {
             editable={true}
             onChangeText={(password) => this.setState({password})}
             placeholder='Password'
-            ref='password'
+            // ref='password'
             returnKeyType='next'
             secureTextEntry={true}
             style={styles.inputText}
@@ -89,11 +89,11 @@ class Authentication extends Component {
           />
 
           <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogin.bind(this)}>
-            <Text style={styles.buttonText}> Log In </Text>
+            <Text style={styles.buttonText}>Log In</Text>
           </TouchableOpacity>
 
           <TouchableOpacity style={styles.buttonWrapper} onPress={this.userSignup.bind(this)}>
-            <Text style={styles.buttonText}> Sign Up </Text>
+            <Text style={styles.buttonText}>Sign Up</Text>
           </TouchableOpacity>
         </View>
       </View>
