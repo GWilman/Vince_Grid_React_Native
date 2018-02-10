@@ -7,7 +7,7 @@ class HomePage extends Component {
 
   getProtectedQuote() {
     AsyncStorage.getItem('id_token').then((token) => {
-      // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
+      // (done) localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
       fetch('http://127.0.0.1:3001/api/protected/random-quote', {
         method: 'GET',
         headers: { 'Authorization': 'Bearer ' + token }
