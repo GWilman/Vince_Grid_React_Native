@@ -127,7 +127,7 @@ app.post('/sessions/create', function(req, res) {
   }
 
   res.status(201).send({
-    id_token: createIdToken(user),
-    access_token: createAccessToken()
+    id_token: createIdToken(user)
+    // access_token: createAccessToken()
   });
 });
