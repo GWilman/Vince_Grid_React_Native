@@ -9,6 +9,7 @@ class Authentication extends Component {
     super();
     this.state = {
       username: null,
+      // email: null,
       password: null
     };
   }
@@ -21,6 +22,7 @@ class Authentication extends Component {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: this.state.username,
+        // email: this.state.email,
         password: this.state.password
       })
     })
@@ -71,17 +73,25 @@ class Authentication extends Component {
             editable={true}
             onChangeText={(username) => this.setState({username})}
             placeholder='Username'
-            // ref='username'
             returnKeyType='next'
             style={styles.inputText}
             value={this.state.username}
           />
 
+          {/* <TextInput
+            editable={true}
+            onChangeText={(email) => this.setState({email})}
+            placeholder='Email'
+            returnKeyType='next'
+            secureTextEntry={true}
+            style={styles.inputText}
+            value={this.state.email}
+          /> */}
+
           <TextInput
             editable={true}
             onChangeText={(password) => this.setState({password})}
             placeholder='Password'
-            // ref='password'
             returnKeyType='next'
             secureTextEntry={true}
             style={styles.inputText}

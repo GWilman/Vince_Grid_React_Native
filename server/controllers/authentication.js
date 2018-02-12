@@ -2,6 +2,8 @@ const config  = require('../config');
 const jwt     = require('jsonwebtoken');
 const _       = require('lodash');
 
+// const User = require('../models/user');
+
 // This should be a database of users :).
 const users = [{
   id: 1,
@@ -57,6 +59,14 @@ function getUserScheme(req) {
   };
 }
 
+// function index(req, res, next) {
+//   User
+//     .find()
+//     .exec()
+//     .then(users => res.status(200).json(users))
+//     .catch(next);
+// }
+
 function index(req, res) {
   res.status(200).send({
     users
@@ -83,6 +93,16 @@ function register(req, res) {
     id_token: createIdToken(profile)
   });
 }
+
+// function register(req, res, next) {
+//   User
+//     .create(req.body)
+//     .then(user => {
+//       const token = jwt.sign({ userId: user._id }, config.secret, { expiresIn: '24hr' });
+//       return res.json({ message: `Welcome ${user.username}!`, token, user });
+//     })
+//     .catch(next);
+// }
 
 function login(req, res) {
   const userScheme = getUserScheme(req);
