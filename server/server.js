@@ -5,6 +5,7 @@ const express      = require('express');
 const errorhandler = require('errorhandler');
 const dotenv       = require('dotenv');
 const bodyParser   = require('body-parser');
+const routes       = require('./config/routes');
 
 const app = express();
 
@@ -33,7 +34,7 @@ if (process.env.NODE_ENV === 'development') {
 
 app.use(require('./anonymous-routes'));
 app.use(require('./protected-routes'));
-app.use(require('./user-routes'));
+app.use(routes);
 
 const port = process.env.PORT || 3001;
 
