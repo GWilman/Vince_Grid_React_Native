@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Alert, AsyncStorage, Text, TextInput, TouchableOpacity, View} from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import React, { Component } from 'react';
+import { Alert, AsyncStorage, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 class Authentication extends Component {
@@ -9,7 +9,6 @@ class Authentication extends Component {
     super();
     this.state = {
       username: null,
-      // email: null,
       password: null
     };
   }
@@ -22,7 +21,6 @@ class Authentication extends Component {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
         username: this.state.username,
-        // email: this.state.email,
         password: this.state.password
       })
     })
@@ -46,8 +44,15 @@ class Authentication extends Component {
         password: this.state.password
       })
     })
-      .then((response) => response.json())
+      .then((response) => {
+        console.log(response.status);
+        if (response.status >= 400) return response.status;
+        return response.json();
+      })
       .then((responseData) => {
+        console.log(responseData);
+        if (responseData >= 400) return Alert.alert('Invalid credentials');
+        console.log('data', responseData);
         this.saveItem('id_token', responseData.id_token),
         Alert.alert('Login Success!', 'Click the button to get a Chuck Norris quote!'),
         Actions.HomePage();
