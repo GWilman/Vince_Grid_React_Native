@@ -3,13 +3,17 @@ import { ActivityIndicator, AsyncStorage } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
 import Authentication from './routes/Authentication';
+import Dashboard from './routes/Dashboard';
 import Homepage from './routes/Homepage';
 
 class App extends Component {
 
   constructor() {
     super();
-    this.state = { hasToken: false, isLoaded: false };
+    this.state = {
+      hasToken: false,
+      isLoaded: false
+    };
   }
 
   componentDidMount() {
@@ -33,6 +37,13 @@ class App extends Component {
               hideNavBar={true}
               key='Authentication'
               title='Authentication'
+            />
+            <Scene
+              component={Dashboard}
+              initial={this.state.hasToken}
+              hideNavBar={true}
+              key='Dashboard'
+              title='Dashboard'
             />
             <Scene
               component={Homepage}

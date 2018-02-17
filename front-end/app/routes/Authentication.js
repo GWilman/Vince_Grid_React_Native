@@ -53,9 +53,9 @@ class Authentication extends Component {
         console.log(responseData);
         if (responseData >= 400) return Alert.alert('Invalid credentials');
         console.log('data', responseData);
-        this.saveItem('id_token', responseData.id_token),
-        Alert.alert('Login Success!', 'Click the button to get a Chuck Norris quote!'),
-        Actions.HomePage();
+        this.saveItem('id_token', responseData.id_token);
+        Alert.alert('Login Success!');
+        Actions.Dashboard();
       })
       .done();
   }
@@ -82,16 +82,6 @@ class Authentication extends Component {
             style={styles.inputText}
             value={this.state.username}
           />
-
-          {/* <TextInput
-            editable={true}
-            onChangeText={(email) => this.setState({email})}
-            placeholder='Email'
-            returnKeyType='next'
-            secureTextEntry={true}
-            style={styles.inputText}
-            value={this.state.email}
-          /> */}
 
           <TextInput
             editable={true}

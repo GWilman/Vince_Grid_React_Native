@@ -1,6 +1,6 @@
-import React, {Component} from 'react';
-import {Alert, AsyncStorage, Text, TouchableOpacity, View} from 'react-native';
-import {Actions} from 'react-native-router-flux';
+import React, { Component } from 'react';
+import { Alert, AsyncStorage, Text, TouchableOpacity, View } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
 class HomePage extends Component {
