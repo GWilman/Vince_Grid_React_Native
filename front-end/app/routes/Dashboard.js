@@ -33,10 +33,10 @@ class Dashboard extends Component {
   }
 
   createLeague() {
-    Actions.createLeague();
+    Actions.CreateLeague();
   }
 
-  async userLogout() {
+  userLogout() {
     Auth.removeToken();
     Alert.alert('Logout Success!');
     Actions.Authentication();

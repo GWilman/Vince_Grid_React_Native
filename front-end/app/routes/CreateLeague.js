@@ -30,8 +30,21 @@ class Dashboard extends Component {
     this.setState({ league });
   }
 
-  createLeague() {
-
+  handleSubmit() {
+    fetch('http://127.0.0.1:3001/leagues', {
+      method: 'POST',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        name: this.state.name,
+        stake: this.state.stake
+      })
+    })
+      .then(league => console.log(league))
+      .then(() => {
+        Alert.alert('League created!');
+        Actions.Dashboard();
+      })
+      .done();
   }
 
   render() {
@@ -41,24 +54,23 @@ class Dashboard extends Component {
         <View style={styles.form}>
           <TextInput
             editable={true}
-            onChangeText={(username) => this.setState({username})}
-            placeholder='Username'
+            onChangeText={(name) => this.setState({ name })}
+            placeholder='League name'
             returnKeyType='next'
             style={styles.inputText}
-            value={this.state.username}
+            value={this.state.name}
           />
 
           <TextInput
             editable={true}
-            onChangeText={(password) => this.setState({password})}
-            placeholder='Password'
+            onChangeText={(stake) => this.setState({ stake })}
+            placeholder='Stake (£)'
             returnKeyType='next'
-            secureTextEntry={true}
             style={styles.inputText}
-            value={this.state.password}
+            value={this.state.stake}
           />
 
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.createLeague.bind(this)}>
+          <TouchableOpacity style={styles.buttonWrapper} onPress={this.handleSubmit.bind(this)}>
             <Text style={styles.buttonText}>Create League</Text>
           </TouchableOpacity>
         </View>
