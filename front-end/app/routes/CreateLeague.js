@@ -3,9 +3,9 @@ import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
-import Auth from '../lib/Auth';
+// import Auth from '../lib/Auth';
 
-class Dashboard extends Component {
+class CreateLeague extends Component {
 
   constructor() {
     super();
@@ -18,12 +18,12 @@ class Dashboard extends Component {
     };
   }
 
-  componentDidMount() {
-    Auth.getToken()
-      .then(token => {
-        console.log('token', token);
-      });
-  }
+  // componentDidMount() {
+  //   Auth.getToken()
+  //     .then(token => {
+  //       console.log('token', token);
+  //     });
+  // }
 
   handleChange = ({ target: { name, value } }) => {
     const league = Object.assign({}, this.state.league, { [name]: value });
@@ -80,4 +80,4 @@ class Dashboard extends Component {
 
 }
 
-export default Dashboard;
+export default CreateLeague;

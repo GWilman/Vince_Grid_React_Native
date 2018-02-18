@@ -5,6 +5,7 @@ import { Router, Scene } from 'react-native-router-flux';
 import Authentication from './routes/Authentication';
 import Dashboard from './routes/Dashboard';
 import CreateLeague from './routes/CreateLeague';
+import JoinLeague from './routes/JoinLeague';
 
 import Auth from './lib/Auth';
 
@@ -39,6 +40,13 @@ class App extends Component {
               hideNavBar={true}
               key='Authentication'
               title='Authentication'
+            />
+            <Scene
+              component={JoinLeague}
+              initial={this.state.hasToken}
+              hideNavBar={true}
+              key='JoinLeague'
+              title='Join League'
             />
             <Scene
               component={CreateLeague}

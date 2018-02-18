@@ -19,7 +19,6 @@ class Dashboard extends Component {
     Auth.getPayload()
       .then(data => {
         this.setState({ user: data });
-        console.log('user', this.state.user);
       });
 
   //   const promises = {
@@ -32,10 +31,6 @@ class Dashboard extends Component {
   //     .catch(err => console.error(err));
   }
 
-  createLeague() {
-    Actions.CreateLeague();
-  }
-
   userLogout() {
     Auth.removeToken();
     Alert.alert('Logout Success!');
@@ -46,8 +41,11 @@ class Dashboard extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Dashboard</Text>
-        <TouchableOpacity style={styles.buttonWrapper} onPress={this.createLeague.bind(this)}>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.CreateLeague}>
           <Text style={styles.buttonText}>Create League</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.JoinLeague}>
+          <Text style={styles.buttonText}>Join League</Text>
         </TouchableOpacity>
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogout}>
           <Text style={styles.buttonText}>Log out</Text>
