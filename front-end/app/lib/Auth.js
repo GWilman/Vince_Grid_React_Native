@@ -2,9 +2,13 @@ import { AsyncStorage } from 'react-native';
 
 class Auth {
 
-  // static setToken(token) {
-  //   return localStorage.setItem('token', token);
-  // }
+  static async saveItem(item, selectedValue) {
+    try {
+      await AsyncStorage.setItem(item, selectedValue);
+    } catch (error) {
+      console.error('AsyncStorage error: ' + error.message);
+    }
+  }
 
   static async getToken() {
     let token = null;
@@ -22,10 +26,18 @@ class Auth {
   // static isAuthenticated() {
   //   return !!this.getToken();
   // }
-  //
+
   // static removeToken() {
   //   localStorage.removeItem('token');
   // }
+
+  static async removeToken() {
+    try {
+      await AsyncStorage.removeItem('token');
+    } catch (error) {
+      console.log('AsyncStorage error: ' + error.message);
+    }
+  }
 
   static async getPayload() {
     let payload = null;

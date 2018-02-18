@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
-import { Alert, AsyncStorage, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+
 import styles from './styles';
+import Auth from '../lib/Auth';
 
 class Authentication extends Component {
 
@@ -15,7 +17,7 @@ class Authentication extends Component {
 
   userSignup() {
     if (!this.state.username || !this.state.password) return;
-    // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
+
     fetch('http://127.0.0.1:3001/users', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -30,8 +32,8 @@ class Authentication extends Component {
       })
       .then((responseData) => {
         if (responseData >= 400) return Alert.alert('That username is already taken. Please choose another.');
-        this.saveItem('token', responseData.token),
-        Alert.alert( 'Signup Success!', 'Click the button to get a Chuck Norris quote!'),
+        Auth.saveItem('token', responseData.token),
+        Alert.alert( 'Signup Success!'),
         Actions.Dashboard();
       })
       .done();
@@ -39,7 +41,7 @@ class Authentication extends Component {
 
   userLogin() {
     if (!this.state.username || !this.state.password) return;
-    // TODO: localhost doesn't work because the app is running inside an emulator. Get the IP address with ifconfig.
+
     fetch('http://127.0.0.1:3001/sessions/create', {
       method: 'POST',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
@@ -55,25 +57,17 @@ class Authentication extends Component {
       })
       .then((responseData) => {
         if (responseData >= 400) return Alert.alert('Invalid credentials');
-        this.saveItem('token', responseData.token);
+        Auth.saveItem('token', responseData.token);
         Alert.alert('Login Success!');
         Actions.Dashboard();
       })
       .done();
   }
 
-  async saveItem(item, selectedValue) {
-    try {
-      await AsyncStorage.setItem(item, selectedValue);
-    } catch (error) {
-      console.error('AsyncStorage error: ' + error.message);
-    }
-  }
-
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}> Welcome </Text>
+        <Text style={styles.title}>Welcome</Text>
 
         <View style={styles.form}>
           <TextInput

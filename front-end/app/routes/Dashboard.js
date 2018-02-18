@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
@@ -18,7 +18,7 @@ class Dashboard extends Component {
   componentDidMount() {
     Auth.getPayload()
       .then(data => {
-        this.setState({user: data});
+        this.setState({ user: data });
         console.log('user', this.state.user);
       });
 
@@ -36,7 +36,11 @@ class Dashboard extends Component {
     Actions.createLeague();
   }
 
-
+  async userLogout() {
+    Auth.removeToken();
+    Alert.alert('Logout Success!');
+    Actions.Authentication();
+  }
 
   render() {
     return (
@@ -44,6 +48,9 @@ class Dashboard extends Component {
         <Text style={styles.title}>Dashboard</Text>
         <TouchableOpacity style={styles.buttonWrapper} onPress={this.createLeague.bind(this)}>
           <Text style={styles.buttonText}>Create League</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.buttonWrapper} onPress={this.userLogout}>
+          <Text style={styles.buttonText}>Log out</Text>
         </TouchableOpacity>
       </View>
     );
