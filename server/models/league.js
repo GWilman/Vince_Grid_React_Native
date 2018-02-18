@@ -6,12 +6,12 @@ const leagueSchema = new mongoose.Schema({
   code: { type: Number, required: true }
 });
 
-// leagueSchema
-//   .virtual('users', {
-//     ref: 'User',
-//     localField: '_id',
-//     foreignField: 'leagues'
-//   });
+leagueSchema
+  .virtual('users', {
+    ref: 'User',
+    localField: '_id',
+    foreignField: 'leagues'
+  });
 //
 // leagueSchema
 //   .virtual('picks', {

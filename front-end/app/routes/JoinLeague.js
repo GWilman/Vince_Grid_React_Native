@@ -3,7 +3,7 @@ import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 // import { Actions } from 'react-native-router-flux';
 import styles from './styles';
 
-// import Auth from '../lib/Auth';
+import Auth from '../lib/Auth';
 
 class JoinLeague extends Component {
 
@@ -11,11 +11,19 @@ class JoinLeague extends Component {
     super();
     this.state = {
       leagues: null,
-      code: null
+      code: null,
+      user: null
     };
   }
 
   componentDidMount() {
+    Auth.getPayload()
+      .then(({ userId }) => this.setState({ userId }))
+      .catch(err => console.error(err));
+
+    // USE USERID TO MAKE REQUEST FOR USER DATA
+    // look at multiple fetch requests
+
     fetch('http://127.0.0.1:3001/leagues', {
       method: 'GET',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
@@ -27,20 +35,21 @@ class JoinLeague extends Component {
 
   handleSubmit(league) {
     const code = this.state.leagues.find(_league => _league.id === league.id).code;
-    console.log('code', code);
-    console.log('input', this.state.code);
+
     if (code !== this.state.code) {
       return Alert.alert('Invalid code');
     }
-    Alert.alert('correct code!');
-    console.log('correct code!');
 
-    // fetch('http://127.0.0.1:3001/leagues', {
-    //   method: 'POST',
+    Alert.alert(`Success! You are now a member of ${league.name}!`);
+
+    // FOR BELOW: UPDATE USER OBJECT ON STATE (CONCAT LEAGUE ID)
+    // MAKE PUT REQUEST TO SERVER (NEW ROUTES REQUIRED)
+
+    // fetch(`/api/users/${this.state.userId}`, {
+    //   method: 'PUT',
     //   headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
     //   body: JSON.stringify({
-    //     name: this.state.name,
-    //     stake: this.state.stake
+    //     leagues: league.id
     //   })
     // })
     //   .then(league => console.log(league))
@@ -49,6 +58,7 @@ class JoinLeague extends Component {
     //     Actions.Dashboard();
     //   })
     //   .done();
+
   }
 
   render() {

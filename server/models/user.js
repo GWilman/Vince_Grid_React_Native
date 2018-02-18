@@ -5,8 +5,8 @@ const userSchema = new mongoose.Schema({
   username: { type: String, required: 'Username is required.', unique: 'That username has already been taken.' },
   // email: { type: String, required: 'Email is required.', unique: 'That email has already been taken.' },
   // image: { type: String },
-  password: { type: String, required: 'Password is required.' }
-  // leagues: [{ type: mongoose.Schema.ObjectId, ref: 'League' }],
+  password: { type: String, required: 'Password is required.' },
+  leagues: [{ type: mongoose.Schema.ObjectId, ref: 'League' }]
   // picks: [{ type: mongoose.Schema.ObjectId, ref: 'Pick' }]
 }, {
   timestamps: true
