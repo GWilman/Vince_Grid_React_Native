@@ -6,18 +6,18 @@ const errorhandler = require('errorhandler');
 const dotenv       = require('dotenv');
 const bodyParser   = require('body-parser');
 const routes       = require('./config/routes');
-// const env          = process.env.NODE_ENV || 'development';
-// const dbURI        = process.env.MONGODB_URI || `mongodb://localhost/vince-native=${env}`;
+const env          = process.env.NODE_ENV || 'development';
+const dbURI        = process.env.MONGODB_URI || `mongodb://localhost/vince-native=${env}`;
 
 
 const app = express();
 
 dotenv.load();
 
-// const mongoose = require('mongoose');
-// mongoose.Promise = require('bluebird');
+const mongoose = require('mongoose');
+mongoose.Promise = require('bluebird');
 
-// mongoose.connect(dbURI);
+mongoose.connect(dbURI);
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
