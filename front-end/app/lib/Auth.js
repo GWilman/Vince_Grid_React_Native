@@ -27,10 +27,6 @@ class Auth {
   //   return !!this.getToken();
   // }
 
-  // static removeToken() {
-  //   localStorage.removeItem('token');
-  // }
-
   static async removeToken() {
     try {
       await AsyncStorage.removeItem('token');
