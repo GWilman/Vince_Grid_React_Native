@@ -94,6 +94,7 @@ function register(req, res, next) {
   User
     .create(req.body)
     .then(user => {
+      if (user.status === 500) return res.status(500).send('A user with that username already exists.');
       console.log(user);
       const token = createIdToken(user);
       return res.json({ message: `Welcome ${user.username}!`, token, user });
@@ -123,8 +124,21 @@ function register(req, res, next) {
 //   });
 // }
 
+function login(req, res, next) {
+  User
+    .findOne({ username: req.body.username })
+    .then((user) => {
+      if(!user) {
+        return res.status(401).send('No user found');
+      }
+      const token = createIdToken(user);
+      return res.json({ message: `Welcome back ${user.username}!`, token, user });
+    })
+    .catch(next);
+}
+
 module.exports = {
   // index: index,
-  register: register
-  // login: login
+  register: register,
+  login: login
 };

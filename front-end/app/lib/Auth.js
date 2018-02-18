@@ -9,7 +9,7 @@ class Auth {
   static async getToken() {
     let token = null;
     try {
-      await AsyncStorage.getItem('id_token')
+      await AsyncStorage.getItem('token')
         .then(value => {
           token = value;
         });
@@ -30,7 +30,7 @@ class Auth {
   static async getPayload() {
     let payload = null;
     try {
-      await AsyncStorage.getItem('id_token')
+      await AsyncStorage.getItem('token')
         .then(token => {
           payload = JSON.parse(atob(token.split('.')[1]));
         });

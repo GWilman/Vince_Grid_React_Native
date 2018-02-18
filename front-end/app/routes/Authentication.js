@@ -24,11 +24,15 @@ class Authentication extends Component {
         password: this.state.password
       })
     })
-      .then((response) => response.json())
+      .then((response) => {
+        if (response.status >= 400) return response.status;
+        return response.json();
+      })
       .then((responseData) => {
-        this.saveItem('id_token', responseData.id_token),
+        if (responseData >= 400) return Alert.alert('That username is already taken. Please choose another.');
+        this.saveItem('token', responseData.token),
         Alert.alert( 'Signup Success!', 'Click the button to get a Chuck Norris quote!'),
-        Actions.HomePage();
+        Actions.Dashboard();
       })
       .done();
   }
@@ -50,10 +54,8 @@ class Authentication extends Component {
         return response.json();
       })
       .then((responseData) => {
-        console.log(responseData);
         if (responseData >= 400) return Alert.alert('Invalid credentials');
-        console.log('data', responseData);
-        this.saveItem('id_token', responseData.id_token);
+        this.saveItem('token', responseData.token);
         Alert.alert('Login Success!');
         Actions.Dashboard();
       })

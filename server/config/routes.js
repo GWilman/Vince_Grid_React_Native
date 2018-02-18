@@ -8,8 +8,8 @@ router.route('/users')
   .post(auth.register);
 
 // /sessions Route
-// router.route('/sessions/create')
-//   .post(auth.login);
+router.route('/sessions/create')
+  .post(auth.login);
 
 // /leagues Routes
 router.route('/leagues')
