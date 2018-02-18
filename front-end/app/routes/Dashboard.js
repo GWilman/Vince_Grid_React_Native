@@ -15,32 +15,36 @@ class Dashboard extends Component {
     };
   }
 
-  async getToken() {
-    let token;
+  async getPayload() {
+    let payload = null;
     try {
       await AsyncStorage.getItem('id_token')
-        .then(value => {
-          // console.log(value);
-          token = value;
+        .then(token => {
+          payload = JSON.parse(atob(token.split('.')[1]));
         });
     } catch (error) {
       console.error('AsyncStorage error: ' + error.message);
     }
-    console.log(token);
-    return token;
+    // console.log(token);
+    return payload;
   }
 
-  getPayload() {
-    const token = this.getToken();
-    if (!token) return null;
-    console.log('token', token);
-    // NOT A FUNCTION
-    // return JSON.parse(atob(token.split('.')[1]));
-  }
+  // getPayload() {
+  //   const token = this.getToken();
+  //   if (!token) return null;
+  //   console.log('getToken', this.getToken());
+  //   console.log('token', token);
+  //   console.log(typeof(token));
+  //   // NOT A FUNCTION
+  //   // return JSON.parse(atob(token.split('.')[1]));
+  // }
 
   componentDidMount() {
-    const user = this.getPayload();
-    console.log('user', user);
+    this.getPayload()
+      .then(data => {
+        this.setState({user: data});
+        console.log('user', this.state.user);
+      });
   //   const promises = {
   //     leagues: Axios.get('/api/leagues').then(res => res.data),
   //     user: Axios.get(`/api/users/${userId}`).then(res => res.data)
