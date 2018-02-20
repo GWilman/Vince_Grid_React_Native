@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import styles from './styles';
+import styles from '../styles/styles';
 
 // import Auth from '../lib/Auth';
 
@@ -51,28 +51,30 @@ class CreateLeague extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Create New League</Text>
-        <View style={styles.form}>
-          <TextInput
-            editable={true}
-            onChangeText={(name) => this.setState({ name })}
-            placeholder='League name'
-            returnKeyType='next'
-            style={styles.inputText}
-            value={this.state.name}
-          />
+        <View style={styles.itemContainer}>
+          <View style={styles.form}>
+            <TextInput
+              editable={true}
+              onChangeText={(name) => this.setState({ name })}
+              placeholder='League name'
+              returnKeyType='next'
+              style={styles.inputText}
+              value={this.state.name}
+            />
 
-          <TextInput
-            editable={true}
-            onChangeText={(stake) => this.setState({ stake })}
-            placeholder='Stake (£)'
-            returnKeyType='next'
-            style={styles.inputText}
-            value={this.state.stake}
-          />
+            <TextInput
+              editable={true}
+              onChangeText={(stake) => this.setState({ stake })}
+              placeholder='Stake (£)'
+              returnKeyType='next'
+              style={styles.inputText}
+              value={this.state.stake}
+            />
 
-          <TouchableOpacity style={styles.buttonWrapper} onPress={this.handleSubmit.bind(this)}>
-            <Text style={styles.buttonText}>Create League</Text>
-          </TouchableOpacity>
+            <TouchableOpacity style={styles.buttonWrapper} onPress={this.handleSubmit.bind(this)}>
+              <Text style={styles.buttonText}>Create League</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
     );

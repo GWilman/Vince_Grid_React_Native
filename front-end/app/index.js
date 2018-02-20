@@ -2,7 +2,9 @@ import React, { Component } from 'react';
 import { ActivityIndicator } from 'react-native';
 import { Router, Scene } from 'react-native-router-flux';
 
-import Authentication from './routes/Authentication';
+import Home from './routes/Home';
+import Login from './routes/Auth/Login';
+import Signup from './routes/Auth/Signup';
 import Dashboard from './routes/Dashboard';
 import CreateLeague from './routes/CreateLeague';
 import JoinLeague from './routes/JoinLeague';
@@ -35,11 +37,25 @@ class App extends Component {
         <Router>
           <Scene key='root'>
             <Scene
-              component={Authentication}
+              component={Login}
               initial={!this.state.hasToken}
               hideNavBar={true}
-              key='Authentication'
-              title='Authentication'
+              key='Login'
+              title='Login'
+            />
+            <Scene
+              component={Signup}
+              initial={!this.state.hasToken}
+              hideNavBar={true}
+              key='Signup'
+              title='Signup'
+            />
+            <Scene
+              component={Home}
+              initial={!this.state.hasToken}
+              hideNavBar={true}
+              key='Home'
+              title='Home'
             />
             <Scene
               component={JoinLeague}
