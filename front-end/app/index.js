@@ -1,14 +1,8 @@
 import React, { Component } from 'react';
-import { ActivityIndicator } from 'react-native';
-import { Router, Scene } from 'react-native-router-flux';
+import { ActivityIndicator, View } from 'react-native';
 
-import Home from './routes/Home';
-import Login from './routes/Auth/Login';
-import Signup from './routes/Auth/Signup';
-import Dashboard from './routes/Dashboard';
-import CreateLeague from './routes/CreateLeague';
-import JoinLeague from './routes/JoinLeague';
-
+import Routes from './components/Routes';
+import Navbar from './components/Navbar';
 import Auth from './lib/Auth';
 
 class App extends Component {
@@ -33,53 +27,11 @@ class App extends Component {
         <ActivityIndicator />
       );
     } else {
-      return(
-        <Router>
-          <Scene key='root'>
-            <Scene
-              component={Login}
-              initial={!this.state.hasToken}
-              hideNavBar={true}
-              key='Login'
-              title='Login'
-            />
-            <Scene
-              component={Signup}
-              initial={!this.state.hasToken}
-              hideNavBar={true}
-              key='Signup'
-              title='Signup'
-            />
-            <Scene
-              component={Home}
-              initial={!this.state.hasToken}
-              hideNavBar={true}
-              key='Home'
-              title='Home'
-            />
-            <Scene
-              component={JoinLeague}
-              initial={this.state.hasToken}
-              hideNavBar={true}
-              key='JoinLeague'
-              title='Join League'
-            />
-            <Scene
-              component={CreateLeague}
-              initial={this.state.hasToken}
-              hideNavBar={true}
-              key='CreateLeague'
-              title='Create League'
-            />
-            <Scene
-              component={Dashboard}
-              initial={this.state.hasToken}
-              hideNavBar={true}
-              key='Dashboard'
-              title='Dashboard'
-            />
-          </Scene>
-        </Router>
+      return (
+        <View style={{ flex: 1 }}>
+          <Routes props={this.state} />
+          <Navbar />
+        </View>
       );
     }
   }

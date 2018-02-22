@@ -28,18 +28,27 @@ const styles = StyleSheet.create({
   },
 
   leagueJoinContainer: {
-    borderWidth: 1,
-    borderColor: 'black',
     backgroundColor: '#e8e8e8',
     alignItems: 'center',
     justifyContent: 'center',
     flex: 1,
-    width: '90%',
-    padding: 30
+    width: 320,
+    padding: 20,
+    marginBottom: 10,
+    borderRadius: 10
   },
 
   form: {
     width: 300
+  },
+
+  leagueJoinForm: {
+    width: '100%'
+  },
+
+  joinButtonWrapper: {
+    backgroundColor: '#D3D3D3',
+    width: '100%'
   },
 
   image: {
@@ -47,11 +56,13 @@ const styles = StyleSheet.create({
   },
 
   inputText: {
+    backgroundColor: '#fff',
     marginBottom: 10,
     padding: 10
   },
 
   title: {
+    color: '#fff',
     fontSize: 40,
     margin: 10,
     textAlign: 'center'
@@ -60,18 +71,21 @@ const styles = StyleSheet.create({
   leagueInfo: {
     flex: 1,
     justifyContent: 'space-between',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    marginBottom: 10
   },
 
   leagueInfoLeft: {
     flex: 1,
-    justifyContent: 'flex-start'
+    justifyContent: 'flex-start',
+    fontSize: 20
   },
 
   leagueInfoRight: {
     flex: 1,
     textAlign: 'right',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    fontSize: 20
   }
 
 });

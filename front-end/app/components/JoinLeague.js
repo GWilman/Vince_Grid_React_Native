@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import { Alert, Text, TextInput, TouchableOpacity, View, ScrollView } from 'react-native';
 // import { Actions } from 'react-native-router-flux';
 import styles from '../styles/styles';
 
@@ -65,29 +65,31 @@ class JoinLeague extends Component {
     return (
       <View style={styles.container}>
         <Text style={styles.title}>Join a League</Text>
-        <View style={styles.itemContainer}>
-          { this.state.leagues && this.state.leagues.map(league =>
-            <View key={league._id} style={styles.leagueJoinContainer}>
-              <View style={styles.leagueInfo}>
-                <Text style={styles.leagueInfoLeft}>{league.name}</Text>
-                <Text style={styles.leagueInfoRight}>Stake: £{league.stake}</Text>
-              </View>
-              <View style={styles.form}>
-                <TextInput
-                  editable={true}
-                  onChangeText={(code) => this.setState({ code: parseInt(code, 10) })}
-                  placeholder='Enter code'
-                  returnKeyType='next'
-                  style={styles.inputText}
-                  value={league.entryCode}
-                />
-                <TouchableOpacity style={styles.buttonWrapper} onPress={() => this.handleSubmit(league)}>
-                  <Text style={styles.buttonText}>Join</Text>
-                </TouchableOpacity>
-              </View>
-            </View>)
-          }
-        </View>
+        <ScrollView>
+          <View style={styles.itemContainer}>
+            { this.state.leagues && this.state.leagues.map(league =>
+              <View key={league._id} style={styles.leagueJoinContainer}>
+                <View style={styles.leagueInfo}>
+                  <Text style={styles.leagueInfoLeft}>{league.name}</Text>
+                  <Text style={styles.leagueInfoRight}>Stake: £{league.stake}</Text>
+                </View>
+                <View style={styles.leagueJoinForm}>
+                  <TextInput
+                    editable={true}
+                    onChangeText={(code) => this.setState({ code: parseInt(code, 10) })}
+                    placeholder='Enter code'
+                    returnKeyType='next'
+                    style={styles.inputText}
+                    value={league.entryCode}
+                  />
+                  <TouchableOpacity style={styles.joinButtonWrapper} onPress={() => this.handleSubmit(league)}>
+                    <Text style={styles.buttonText}>Join</Text>
+                  </TouchableOpacity>
+                </View>
+              </View>)
+            }
+          </View>
+        </ScrollView>
       </View>
     );
   }
