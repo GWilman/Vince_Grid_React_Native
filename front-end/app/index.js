@@ -30,7 +30,7 @@ class App extends Component {
       return (
         <View style={{ flex: 1 }}>
           <Routes props={this.state} />
-          <Navbar />
+          <Navbar initial={this.state.hasToken} />
         </View>
       );
     }
