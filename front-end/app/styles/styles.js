@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
 
-  leagueJoinContainer: {
+  leagueSmallContainer: {
     backgroundColor: '#e8e8e8',
     alignItems: 'center',
     justifyContent: 'center',

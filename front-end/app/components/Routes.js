@@ -7,6 +7,7 @@ import Signup from './Auth/Signup';
 import Dashboard from './Dashboard';
 import CreateLeague from './CreateLeague';
 import JoinLeague from './JoinLeague';
+import MyLeagues from './MyLeagues';
 
 const Routes = ({ hasToken }) => {
 
@@ -16,37 +17,44 @@ const Routes = ({ hasToken }) => {
         <Scene
           component={Login}
           initial={!hasToken}
-          hideNavBar={true}
+          hideNavBar={false}
           key='Login'
           title='Login'
         />
         <Scene
           component={Signup}
           initial={!hasToken}
-          hideNavBar={true}
+          hideNavBar={false}
           key='Signup'
           title='Signup'
         />
         <Scene
           component={Home}
           initial={!hasToken}
-          hideNavBar={true}
+          hideNavBar={false}
           key='Home'
           title='Home'
         />
         <Scene
           component={JoinLeague}
           initial={hasToken}
-          hideNavBar={true}
+          hideNavBar={false}
           key='JoinLeague'
           title='Join League'
         />
         <Scene
           component={CreateLeague}
           initial={hasToken}
-          hideNavBar={true}
+          hideNavBar={false}
           key='CreateLeague'
           title='Create League'
+        />
+        <Scene
+          component={MyLeagues}
+          initial={hasToken}
+          hideNavBar={false}
+          key='MyLeagues'
+          title='My Leagues'
         />
         <Scene
           component={Dashboard}
@@ -59,6 +67,6 @@ const Routes = ({ hasToken }) => {
     </Router>
   );
 
-}
+};
 
 export default Routes;

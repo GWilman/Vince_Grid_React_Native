@@ -16,9 +16,10 @@ class App extends Component {
   }
 
   componentDidMount() {
-    Auth.getToken().then((token) => {
-      this.setState({ hasToken: token !== null, isLoaded: true });
-    });
+    Auth.getToken()
+      .then((token) => {
+        this.setState({ hasToken: token !== null, isLoaded: true });
+      });
   }
 
   render() {
@@ -30,7 +31,7 @@ class App extends Component {
       return (
         <View style={{ flex: 1 }}>
           <Routes props={this.state} />
-          <Navbar initial={this.state.hasToken} />
+          {!this.state.hasToken && <Navbar />}
         </View>
       );
     }

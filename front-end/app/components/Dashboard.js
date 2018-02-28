@@ -40,8 +40,10 @@ class Dashboard extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Dashboard</Text>
         <View style={styles.itemContainer}>
+          <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.MyLeagues}>
+            <Text style={styles.buttonText}>My Leagues</Text>
+          </TouchableOpacity>
           <TouchableOpacity style={styles.buttonWrapper} onPress={Actions.CreateLeague}>
             <Text style={styles.buttonText}>Create League</Text>
           </TouchableOpacity>

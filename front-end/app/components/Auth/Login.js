@@ -27,7 +27,6 @@ class Authentication extends Component {
       })
     })
       .then((response) => {
-        console.log(response.status);
         if (response.status >= 400) return response.status;
         return response.json();
       })
@@ -43,7 +42,6 @@ class Authentication extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Login</Text>
         <View style={styles.itemContainer}>
           <View style={styles.form}>
             <TextInput

@@ -18,7 +18,17 @@ class JoinLeague extends Component {
 
   componentDidMount() {
     Auth.getPayload()
-      .then(({ userId }) => this.setState({ userId }))
+      .then(user => {
+        fetch(`http://127.0.0.1:3001/users/${user.userId}`, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        })
+          .then(response => response.json())
+          .then(user => {
+            this.setState({ user });
+          })
+          .done();
+      })
       .catch(err => console.error(err));
 
     // USE USERID TO MAKE REQUEST FOR USER DATA
@@ -45,30 +55,34 @@ class JoinLeague extends Component {
     // FOR BELOW: UPDATE USER OBJECT ON STATE (CONCAT LEAGUE ID)
     // MAKE PUT REQUEST TO SERVER (NEW ROUTES REQUIRED)
 
-    // fetch(`/api/users/${this.state.userId}`, {
-    //   method: 'PUT',
-    //   headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
-    //   body: JSON.stringify({
-    //     leagues: league.id
-    //   })
-    // })
-    //   .then(league => console.log(league))
-    //   .then(() => {
-    //     Alert.alert('League created!');
-    //     Actions.Dashboard();
-    //   })
-    //   .done();
+    const leagues = this.state.user.leagues.concat(league.id);
+    const user = Object.assign({}, this.state.user, { leagues });
+
+    fetch(`/api/users/${this.state.user._id}`, {
+      method: 'PUT',
+      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        user
+      })
+    })
+      .then(response => response.json())
+      .then(user => console.log(user))
+      // .then(() => {
+      //   Alert.alert('League created!');
+      //   Actions.Dashboard();
+      // })
+      .done();
 
   }
 
   render() {
+    console.log(this.state.user);
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Join a League</Text>
         <ScrollView>
           <View style={styles.itemContainer}>
             { this.state.leagues && this.state.leagues.map(league =>
-              <View key={league._id} style={styles.leagueJoinContainer}>
+              <View key={league._id} style={styles.leagueSmallContainer}>
                 <View style={styles.leagueInfo}>
                   <Text style={styles.leagueInfoLeft}>{league.name}</Text>
                   <Text style={styles.leagueInfoRight}>Stake: £{league.stake}</Text>

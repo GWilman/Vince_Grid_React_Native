@@ -42,7 +42,6 @@ class Authentication extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <Text style={styles.title}>Create Account</Text>
         <View style={styles.itemContainer}>
           <View style={styles.form}>
             <TextInput
