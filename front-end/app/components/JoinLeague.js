@@ -16,6 +16,8 @@ class JoinLeague extends Component {
     };
   }
 
+  // NEXT UP FILTER LEAGUES - ONLY SHOW AVAILABLE LEAGUES
+
   componentDidMount() {
     Auth.getPayload()
       .then(user => {
@@ -30,9 +32,6 @@ class JoinLeague extends Component {
           .done();
       })
       .catch(err => console.error(err));
-
-    // USE USERID TO MAKE REQUEST FOR USER DATA
-    // look at multiple fetch requests
 
     fetch('http://127.0.0.1:3001/leagues', {
       method: 'GET',
@@ -50,15 +49,11 @@ class JoinLeague extends Component {
       return Alert.alert('Invalid code');
     }
 
-    Alert.alert(`Success! You are now a member of ${league.name}!`);
+    const newLeagues = this.state.user.leagues.slice();
+    newLeagues.push(league._id);
+    const user = Object.assign({}, this.state.user, { leagues: newLeagues });
 
-    // FOR BELOW: UPDATE USER OBJECT ON STATE (CONCAT LEAGUE ID)
-    // MAKE PUT REQUEST TO SERVER (NEW ROUTES REQUIRED)
-
-    const leagues = this.state.user.leagues.concat(league.id);
-    const user = Object.assign({}, this.state.user, { leagues });
-
-    fetch(`/api/users/${this.state.user._id}`, {
+    fetch(`http://127.0.0.1:3001/users/${this.state.user._id}`, {
       method: 'PUT',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
       body: JSON.stringify({
@@ -66,11 +61,10 @@ class JoinLeague extends Component {
       })
     })
       .then(response => response.json())
-      .then(user => console.log(user))
-      // .then(() => {
-      //   Alert.alert('League created!');
-      //   Actions.Dashboard();
-      // })
+      .then(user => {
+        this.setState({ user });
+        Alert.alert(`Success! You are now a member of ${league.name}!`);
+      })
       .done();
 
   }

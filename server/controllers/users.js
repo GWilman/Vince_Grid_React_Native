@@ -25,20 +25,21 @@ function usersShow(req, res, next) {
 }
 
 function usersUpdate(req, res, next) {
-  if (req.body.leagues) {
-    for (var i = 0; i < req.body.leagues.length; i++) {
-      if (req.body.leagues[i].id) {
-        req.body.leagues[i] = req.body.leagues[i].id;
-      }
-    }
-  }
+  // if (req.body.leagues) {
+  //   for (var i = 0; i < req.body.leagues.length; i++) {
+  //     if (req.body.leagues[i].id) {
+  //       req.body.leagues[i] = req.body.leagues[i].id;
+  //     }
+  //   }
+  // }
   User
     .findById(req.params.id)
     .exec()
-    .then((user) => {
+    .then(user => {
       if(!user) return res.notFound();
-      for ( const field in req.body) {
-        user[field] = req.body[field];
+      user.leagues = req.body.user.leagues;
+      for (const field in req.body.user) {
+        user[field] = req.body.user[field];
       }
       return user.save();
     })
