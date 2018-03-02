@@ -12,7 +12,7 @@ leagueSchema
     localField: '_id',
     foreignField: 'leagues'
   });
-//
+
 // leagueSchema
 //   .virtual('picks', {
 //     ref: 'Pick',

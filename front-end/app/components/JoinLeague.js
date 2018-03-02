@@ -33,17 +33,26 @@ class JoinLeague extends Component {
       })
       .catch(err => console.error(err));
 
+    // MOVE LEAGUES REQUEST INTO A THEN BLOCK AFTER USER ACQUIRED
+
     fetch('http://127.0.0.1:3001/leagues', {
       method: 'GET',
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     })
       .then(response => response.json())
-      .then(leagues => this.setState({ leagues }))
+      .then(leagues => {
+        console.log(leagues);
+        // const userLeagues = this.state.user.leagues.map(league => league._id);
+        // console.log(this.state.user.leagues);
+        // leagues = leagues.filter(league => !userLeagues.includes(league._id));
+        // console.log('filtered:', leagues);
+        // this.setState({ leagues });
+      })
       .done();
   }
 
   handleSubmit(league) {
-    const code = this.state.leagues.find(_league => _league.id === league.id).code;
+    const code = this.state.leagues.find(_league => _league._id === league._id).code;
 
     if (code !== this.state.code) {
       return Alert.alert('Invalid code');
@@ -78,6 +87,7 @@ class JoinLeague extends Component {
             { this.state.leagues && this.state.leagues.map(league =>
               <View key={league._id} style={styles.leagueSmallContainer}>
                 <View style={styles.leagueInfo}>
+                  <Text>{this.state.code}</Text>
                   <Text style={styles.leagueInfoLeft}>{league.name}</Text>
                   <Text style={styles.leagueInfoRight}>Stake: £{league.stake}</Text>
                 </View>
