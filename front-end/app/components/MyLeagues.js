@@ -11,7 +11,7 @@ class MyLeagues extends Component {
     super();
     this.state = {
       leagues: null,
-      user: null
+      userId: null
     };
   }
 
@@ -25,12 +25,20 @@ class MyLeagues extends Component {
       headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
     })
       .then(response => response.json())
-      .then(leagues => this.setState({ leagues }))
+      .then(leagues => {
+        const filtered = leagues.filter(league => {
+          let match = false;
+          league.users.forEach(user => {
+            if (user._id === this.state.userId) match = true;
+          });
+          return match;
+        });
+        this.setState({ leagues: filtered });
+      })
       .done();
   }
 
   render() {
-    console.log(this.state.leagues);
     return (
       <View style={styles.container}>
         <ScrollView>

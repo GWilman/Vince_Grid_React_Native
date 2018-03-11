@@ -16,8 +16,6 @@ class JoinLeague extends Component {
     };
   }
 
-  // NEXT UP FILTER LEAGUES - ONLY SHOW AVAILABLE LEAGUES
-
   componentDidMount() {
     Auth.getPayload()
       .then(user => {
@@ -29,26 +27,25 @@ class JoinLeague extends Component {
           .then(user => {
             this.setState({ user });
           })
+          .then(() => fetch('http://127.0.0.1:3001/leagues', {
+            method: 'GET',
+            headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+          })
+            .then(response => response.json())
+            .then(leagues => {
+              const filtered = leagues.filter(league => {
+                if (this.state.user.leagues.find(_league => _league._id === league._id)) {
+                  return false;
+                } else {
+                  return true;
+                }
+              });
+              this.setState({ leagues: filtered });
+            }))
           .done();
       })
       .catch(err => console.error(err));
 
-    // MOVE LEAGUES REQUEST INTO A THEN BLOCK AFTER USER ACQUIRED
-
-    fetch('http://127.0.0.1:3001/leagues', {
-      method: 'GET',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-      .then(response => response.json())
-      .then(leagues => {
-        console.log(leagues);
-        // const userLeagues = this.state.user.leagues.map(league => league._id);
-        // console.log(this.state.user.leagues);
-        // leagues = leagues.filter(league => !userLeagues.includes(league._id));
-        // console.log('filtered:', leagues);
-        // this.setState({ leagues });
-      })
-      .done();
   }
 
   handleSubmit(league) {
@@ -79,7 +76,6 @@ class JoinLeague extends Component {
   }
 
   render() {
-    console.log(this.state.user);
     return (
       <View style={styles.container}>
         <ScrollView>

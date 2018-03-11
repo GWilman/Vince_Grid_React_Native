@@ -13,6 +13,16 @@ leagueSchema
     foreignField: 'leagues'
   });
 
+leagueSchema.set('toJSON', {
+  getters: true,
+  virtuals: true,
+  transform(obj, json) {
+    delete json.__v;
+    delete json.password;
+    delete json.passwordConfirmation;
+  }
+});
+
 // leagueSchema
 //   .virtual('picks', {
 //     ref: 'Pick',

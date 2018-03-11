@@ -5,7 +5,7 @@ const users    = require('../controllers/users');
 
 // /users Routes
 router.route('/users')
-  // .get(auth.index)
+  .get(users.index)
   .post(auth.register);
 
 // /users/:id Routes

@@ -1,16 +1,17 @@
 const User = require('../models/user');
 
-// function usersIndex(req, res, next) {
-//   User
-//     .find()
-//     .populate([
-//       { path: 'leagues', populate: { path: 'createdBy' } },
-//       { path: 'picks'}
-//     ])
-//     .exec()
-//     .then(users => res.status(200).json(users))
-//     .catch(next);
-// }
+function usersIndex(req, res, next) {
+  User
+    .find()
+    .populate('leagues')
+    // .populate([
+    //   { path: 'leagues', populate: { path: 'createdBy' } },
+    //   { path: 'picks'}
+    // ])
+    .exec()
+    .then(users => res.status(200).json(users))
+    .catch(next);
+}
 
 function usersShow(req, res, next) {
   User
@@ -60,7 +61,7 @@ function usersUpdate(req, res, next) {
 // }
 
 module.exports = {
-  // index: usersIndex,
+  index: usersIndex,
   show: usersShow,
   update: usersUpdate
   // delete: usersDelete
