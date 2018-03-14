@@ -31,7 +31,7 @@ class Auth {
     try {
       await AsyncStorage.removeItem('token');
     } catch (error) {
-      console.log('AsyncStorage error: ' + error.message);
+      console.error('AsyncStorage error: ' + error.message);
     }
   }
 
