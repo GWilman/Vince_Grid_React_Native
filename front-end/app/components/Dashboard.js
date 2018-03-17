@@ -7,30 +7,6 @@ import Auth from '../lib/Auth';
 
 class Dashboard extends Component {
 
-  constructor() {
-    super();
-    this.state = {
-      leagues: null,
-      user: {}
-    };
-  }
-
-  componentDidMount() {
-    Auth.getPayload()
-      .then(data => {
-        this.setState({ user: data });
-      });
-
-  //   const promises = {
-  //     leagues: Axios.get('/api/leagues').then(res => res.data),
-  //     user: Axios.get(`/api/users/${userId}`).then(res => res.data)
-  //   };
-  //
-  //   Promise.props(promises)
-  //     .then(data => this.setState(data))
-  //     .catch(err => console.error(err));
-  }
-
   userLogout() {
     Auth.removeToken();
     Alert.alert('Logout Success!');

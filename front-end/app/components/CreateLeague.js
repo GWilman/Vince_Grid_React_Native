@@ -3,13 +3,14 @@ import { Alert, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import styles from '../styles/styles';
 
-// import Auth from '../lib/Auth';
+import Auth from '../lib/Auth';
 
 class CreateLeague extends Component {
 
   constructor() {
     super();
     this.state = {
+      user: {},
       league: {
         name: '',
         stake: '',
@@ -18,12 +19,20 @@ class CreateLeague extends Component {
     };
   }
 
-  // componentDidMount() {
-  //   Auth.getToken()
-  //     .then(token => {
-  //       console.log('token', token);
-  //     });
-  // }
+  componentDidMount() {
+    Auth.getPayload()
+      .then(user => {
+        fetch(`http://127.0.0.1:3001/users/${user.userId}`, {
+          method: 'GET',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        })
+          .then(response => response.json())
+          .then(user => {
+            this.setState({ user });
+          });
+      })
+      .catch(err => console.error(err));
+  }
 
   handleChange = ({ target: { name, value } }) => {
     const league = Object.assign({}, this.state.league, { [name]: value });
@@ -44,7 +53,7 @@ class CreateLeague extends Component {
         Alert.alert('League created!');
         Actions.Dashboard();
       })
-      .done();
+      .catch(err => console.error(err));
   }
 
   render() {

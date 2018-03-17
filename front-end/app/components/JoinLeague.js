@@ -18,8 +18,8 @@ class JoinLeague extends Component {
 
   componentDidMount() {
     Auth.getPayload()
-      .then(user => {
-        fetch(`http://127.0.0.1:3001/users/${user.userId}`, {
+      .then(({ userId }) => {
+        fetch(`http://127.0.0.1:3001/users/${userId}`, {
           method: 'GET',
           headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
         })
@@ -41,8 +41,7 @@ class JoinLeague extends Component {
                 }
               });
               this.setState({ leagues: filtered });
-            }))
-          .done();
+            }));
       })
       .catch(err => console.error(err));
 

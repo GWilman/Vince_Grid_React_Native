@@ -18,24 +18,24 @@ class MyLeagues extends Component {
   componentDidMount() {
     Auth.getPayload()
       .then(({ userId }) => this.setState({ userId }))
-      .catch(err => console.error(err));
-
-    fetch('http://127.0.0.1:3001/leagues', {
-      method: 'GET',
-      headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
-    })
-      .then(response => response.json())
-      .then(leagues => {
-        const filtered = leagues.filter(league => {
-          let match = false;
-          league.users.forEach(user => {
-            if (user._id === this.state.userId) match = true;
+      .then(() => {
+        return fetch('http://127.0.0.1:3001/leagues', {
+          method: 'GET',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' }
+        })
+          .then(response => response.json())
+          .then(leagues => {
+            const filtered = leagues.filter(league => {
+              let match = false;
+              league.users.forEach(user => {
+                if (user._id === this.state.userId) match = true;
+              });
+              return match;
+            });
+            this.setState({ leagues: filtered });
           });
-          return match;
-        });
-        this.setState({ leagues: filtered });
       })
-      .done();
+      .catch(err => console.error(err));
   }
 
   render() {
