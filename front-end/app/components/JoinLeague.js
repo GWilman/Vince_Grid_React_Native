@@ -70,7 +70,7 @@ class JoinLeague extends Component {
         this.setState({ user });
         Alert.alert(`Success! You are now a member of ${league.name}!`);
       })
-      .done();
+      .catch(err => console.error(err));
 
   }
 

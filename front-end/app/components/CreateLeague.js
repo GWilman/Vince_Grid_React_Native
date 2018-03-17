@@ -48,7 +48,26 @@ class CreateLeague extends Component {
         stake: this.state.stake
       })
     })
-      .then(league => console.log(league))
+      .then(response => response.json())
+      .then(league => {
+        console.log('LEAGUE', league);
+        const newLeagues = this.state.user.leagues.slice();
+        newLeagues.push(league._id);
+        const user = Object.assign({}, this.state.user, { leagues: newLeagues });
+        console.log('NEW USER OBJ', user);
+        fetch(`http://127.0.0.1:3001/users/${this.state.user._id}`, {
+          method: 'PUT',
+          headers: { 'Accept': 'application/json', 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            user
+          })
+        })
+          .then(response => response.json())
+          .then(user => {
+            console.log('UPDATED USER OBJ', user);
+            this.setState({ user });
+          });
+      })
       .then(() => {
         Alert.alert('League created!');
         Actions.Dashboard();
